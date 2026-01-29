@@ -1,0 +1,521 @@
+\PassOptionsToPackage{table}{xcolor}
+\documentclass[final]{beamer}
+
+% Portrait orientation enforced by poster size
+
+
+% =========================
+% Beamerposter setup
+% =========================
+\usepackage[orientation=portrait,size=a1,scale=1.4,debug]{beamerposter}
+
+% =========================
+% Packages
+% =========================
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{multicol}
+\usepackage{ragged2e}
+\usepackage{hyperref}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{tikz-feynman}
+\tikzfeynmanset{compat=1.1.0}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins}
+
+% =========================
+% Lord of the Rings–inspired light theme colours
+% =========================
+\definecolor{lotrForest}{RGB}{80,120,80}
+\definecolor{lotrGold}{RGB}{180,150,90}
+\definecolor{lotrParchment}{RGB}{245,242,232}
+\definecolor{lotrDark}{RGB}{55,70,60}
+\definecolor{lotrHeader}{RGB}{235,232,220}
+
+% =========================
+% Beamer colour setup
+% =========================
+\setbeamercolor{background canvas}{bg=lotrParchment}
+\setbeamercolor{block title}{fg=lotrParchment,bg=lotrForest}
+\setbeamercolor{block body}{fg=black,bg=lotrHeader}
+\setbeamercolor{title}{fg=lotrDark}
+\setbeamercolor{author}{fg=lotrDark}
+\setbeamercolor{institute}{fg=lotrDark}
+
+% Rounded blocks (fantasy parchment feel)
+\setbeamertemplate{blocks}[rounded][shadow=true]
+
+% =========================
+% Fonts
+% =========================
+\usefonttheme{professionalfonts}
+\setbeamerfont{title}{series=\bfseries,size=\LARGE}
+\setbeamerfont{block title}{series=\bfseries}
+
+% =========================
+% Bulletpoints
+% =========================
+
+\setbeamertemplate{itemize item}{
+  \tikz{
+    \draw[lotrGold,line width=2.6pt] (0,0) circle (0.19);
+  }
+}
+\newcommand{\goldbullet}{%
+  \tikz[baseline=-0.6ex]{%
+    \draw[lotrGold,line width=2.6pt] (0,0) circle (0.19);%
+  }%
+}
+
+% =========================
+% Title information
+% =========================
+\title{A Precision Side Quest at FCC-ee: Probing the Electron--Yukawa Coupling}
+
+\author{Hugo Leigh-Watts}
+
+\institute{\textbf{Supervisor: Prof.~Victoria Martin} \\ University of Edinburgh}
+
+% =========================
+% Background image (LOTR-inspired)
+% =========================
+\usebackgroundtemplate{
+  \tikz
+    \node[opacity=0.75,inner sep=0pt]
+      {\includegraphics[width=\paperwidth,height=\paperheight]{lotr_background.jpg}};
+}
+
+% =========================
+% Title background
+% =========================
+\usetikzlibrary{shadows.blur}
+\newcommand{\headercard}{
+\begin{tikzpicture}[remember picture,overlay]
+  \node[
+    anchor=north,
+    fill=lotrHeader,
+    draw=lotrGold,
+    line width=2.8pt,
+    rounded corners=20pt,
+    minimum width=0.95\paperwidth,
+    minimum height=8.2cm,
+    blur shadow={
+      shadow xshift=2pt,
+      shadow yshift=-2pt,
+      shadow blur steps=10
+    },
+    yshift=-1.5cm
+  ] at (current page.north) {};
+\end{tikzpicture}
+}
+
+% =========================
+% Logos
+% =========================
+
+\newcommand{\cornerlogos}{
+\begin{tikzpicture}[remember picture,overlay]
+
+% Left logo — University of Edinburgh
+\node[
+  anchor=north west,
+  xshift=3cm,
+  yshift=-3cm
+] at (current page.north west)
+{\includegraphics[height=5.2cm]{uni_logo.png}};
+
+% Right logo — CERN
+\node[
+  anchor=north east,
+  xshift=-2cm,
+  yshift=-3cm
+] at (current page.north east)
+{\includegraphics[height=5.2cm]{cern_logo.png}};
+
+\end{tikzpicture}
+}
+
+\makeatletter
+\setlength{\beamer@leftmargin}{10pt}
+\setlength{\beamer@rightmargin}{10pt}
+\makeatother
+
+% Custom rounded block to match title style
+\newtcolorbox{lotrblock}[1]{
+  enhanced,
+  title=#1,
+  fonttitle=\bfseries\large,
+  colbacktitle=lotrForest,
+  coltitle=lotrParchment,
+  colback=lotrHeader,
+  colframe=lotrGold,
+  boxrule=2pt,
+  arc=20pt,           % Corner radius - matches your title!
+  outer arc=20pt,
+  rounded corners,
+  drop shadow,
+  left=0.5em,
+  right=0.5em,
+  top=0.5em,
+  bottom=0.5em,
+  toptitle=0.7em,
+  bottomtitle=0.5em,
+}
+
+% =========================
+% Begin document
+% =========================
+\begin{document}
+
+\begin{frame}[t]
+
+% =========================
+% Header
+% =========================
+\headercard
+\cornerlogos
+
+\vspace{1cm}
+
+\begin{center}
+    {\fontsize{46}{32}\selectfont\bfseries\color{lotrDark}
+    A Precision Side Quest at FCC-ee:\\
+    Probing the Electron--Yukawa Coupling}
+
+    \vspace{0.6cm}
+
+    {\fontsize{30}{36}\selectfont Hugo Leigh-Watts}
+
+    \vspace{0.3cm}
+
+    {\fontsize{24}{30}\selectfont
+    \textbf{Supervisor: Prof.~Victoria Martin}\\
+    University of Edinburgh}
+\end{center}
+
+% =========================
+% Custom block with larger header and body text
+% =========================
+\setbeamertemplate{block begin}{
+  \begin{beamercolorbox}[ht=3ex,dp=1ex,leftskip=1em,rightskip=2em,rounded=true,shadow=true]{block title}%
+    \usebeamerfont{block title}\insertblocktitle%
+  \end{beamercolorbox}%
+  \nointerlineskip%
+  \begin{beamercolorbox}[leftskip=3em,rightskip=3em,sep=0.5em,rounded=true,shadow=true,vmode]{block body}%
+    \normalsize%
+}
+
+\setbeamertemplate{block end}{
+  \end{beamercolorbox}%
+  \vspace{0.25em}%
+}
+
+\vspace{-1cm}
+
+% =========================
+% Main columns
+% =========================
+\begin{columns}[t]
+
+% =========================
+% LEFT COLUMN
+% =========================
+\begin{column}{0.48\textwidth}
+
+
+% =========================
+% The side Quest
+% =========================
+
+\begin{lotrblock}{I. The Side Quest}
+\begin{center}
+\begin{minipage}{1\textwidth}
+\justifying
+
+\textbf{Objective:} Investigate whether quark/gluon jet-level observables can be distinguished to establish the feasibility of measuring the electron–Yukawa coupling at the Future Circular Collider (FCC).
+
+\vspace{0.5em}
+
+%\hspace{1cm}
+\begin{minipage}{0.42\textwidth}
+  \centering
+  \begin{tikzpicture}[scale=1.5]
+    \begin{feynman}[every edge/.style={line width=1.5pt}]
+      \vertex (e1) at (0, 1.5) {$e^-$};
+      \vertex (e2) at (0, -1.5) {$e^+$};
+      \vertex (v1) at (1.5, 0);
+      \vertex (v2) at (3.5, 0);
+      \vertex (q1) at (4.5, 0.8);
+      \vertex (q2) at (4.5, -0.8);
+      \vertex (g1) at (6, 1.5) {$g$};
+      \vertex (g2) at (6, -1.5) {$g$};
+      
+      \diagram* {
+        (e1) -- [fermion] (v1),
+        (e2) -- [anti fermion] (v1),
+        (v1) -- [scalar, edge label=$H$] (v2),
+        (v2) -- [fermion] (q1),
+        (q1) -- [fermion] (q2),
+        (q2) -- [fermion] (v2),
+        (q1) -- [gluon] (g1),
+        (q2) -- [gluon] (g2),
+      };
+    \end{feynman}
+  \end{tikzpicture}
+  \vspace{0.5em}
+  \textbf{Signal:} $e^+e^- \to H \to gg$
+\end{minipage}
+\raisebox{1cm}{\normalsize\textbf{from}}% <-- "from" centered vertically between diagrams
+\begin{minipage}{0.42\textwidth}
+  \centering
+  \begin{tikzpicture}[scale=1.5]
+    \begin{feynman}[every edge/.style={line width=1.5pt}]
+      \vertex (e1) at (0, 1.5) {$e^-$};
+      \vertex (e2) at (0, -1.5) {$e^+$};
+      \vertex (v1) at (1.5, 0);
+      \vertex (v2) at (3.5, 0);
+      \vertex (q1) at (5, 1.5) {$q$};
+      \vertex (q2) at (5, -1.5) {$\bar{q}$};
+      
+      \diagram* {
+        (e1) -- [fermion] (v1),
+        (e2) -- [anti fermion] (v1),
+        (v1) -- [boson, edge label=$\gamma/Z$] (v2),
+        (v2) -- [fermion] (q1),
+        (v2) -- [anti fermion] (q2),
+      };
+    \end{feynman}
+  \end{tikzpicture}
+  
+  \vspace{0.5em}
+  \textbf{Background:} $e^+e^- \to \gamma/Z \to q\bar{q}$
+\end{minipage}
+
+\vspace{0.25em}
+
+\textbf{Why $H \to gg$?} [1]
+
+\vspace{0.5em}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\multicolumn{2}{l}{\textbf{Signal}} \\
+\midrule
+Branching fraction & $\mathcal{B}(H\to gg) = 8.2\%$ \\
+Cross section & $\sigma_{sig} = 23$\,ab \\
+\midrule
+\multicolumn{2}{l}{\textbf{Background}} \\
+\midrule
+Process & $e^+e^- \to q\bar{q}$ (irreducible) \\
+Cross section & $\sigma_{bkg} = 61$\,pb \\
+\midrule
+\multicolumn{2}{l}{\textbf{Result}} \\
+\midrule
+Naive $S/B$ & $4\times10^{-7}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{0.5em}
+
+\textbf{Key Challenge:} Need to distinguish between Gluon and quark jets!
+ 
+\vspace{0.5em}
+
+Other decays have similarly large branching ratios but too much background ($H\to b\bar{b}$) or have exceptionally clean final states but small branching ratio ($H\to \gamma \gamma$) making them statistically negligible.
+\end{minipage}
+\end{center}
+\end{lotrblock}
+
+
+% =========================
+% Methodology: Tools of the Hero
+% =========================
+\begin{lotrblock}{III. Methodology: Tools of the Hero}
+\begin{center}
+\begin{minipage}{1\textwidth}
+\justifying
+
+\textbf{Analysis Pipeline}
+\begin{center}
+    Event Generation (by CERN) $\rightarrow$  Feature Engineering $\rightarrow$ ML Classification
+\end{center}
+
+\textbf{Simulated Data}
+\begin{itemize}
+    \item Using simulated event samples from the FCC-ee Winter 2023 Monte Carlo campaign (CERN) [3]
+    \item Full detector simulation and jet reconstruction
+\end{itemize}
+
+\vspace{0.5em}
+
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+& \textbf{Signal} & \textbf{Background} \\
+& $e^+e^- \to H \to gg$ & $e^+e^- \to q\bar{q}$ \\
+\midrule
+Events simulated & 1.2M & 499M \\
+Events CME & 125GeV & 125GeV \\
+Detector & IDEA & IDEA \\
+\midrule
+$S/B$ & \multicolumn{2}{c}{$2 \times 10^{-7}$} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{itemize}
+    \item Matches the order of magnitude from Ref. [1]
+\end{itemize}
+
+\vspace{0.5em}
+
+\textbf{Feature Engineering:}
+\begin{itemize}
+    \item Can eliminate energies not around the Higgs mass
+    \item Number of particles in a jet (Gluons have more particles)
+    \item Jet width (Gluons are broader)
+\end{itemize}
+\vspace{0.5em}
+After feature engineering, we are left with signal and background that are very similar; this is where machine learning is useful to try and distinguish between jets.
+
+\end{minipage}
+\end{center}
+\end{lotrblock}
+
+
+\end{column}
+
+% =========================
+% RIGHT COLUMN
+% =========================
+\begin{column}{0.48\textwidth}
+
+
+% =========================
+% Background: The World of FCC-ee
+% =========================
+\begin{lotrblock}{II. Background: The World of FCC-ee}
+\begin{center}
+\begin{minipage}{1\textwidth}
+\justifying
+
+The FCC-ee is a proposed $\sim$91\,km $e^+e^-$ collider at CERN (2040s), 
+running at multiple centre-of-mass energies (CME), one being at the \textbf{Higgs mass} (125GeV) for direct production.
+
+\vspace{0.5em}
+
+\textbf{Why FCC-ee, not LHC?} At the LHC, measuring the Yukawa coupling, $y_e$, would require detecting 
+$H\to e^+e^-$ with $\mathcal{B} = 5\times10^{-9}\,\%$ against overwhelming 
+Drell-Yan backgrounds — effectively impossible.[1]
+
+\vspace{0.5em}
+
+At FCC-ee ($\sqrt{s}=m_H$), we would use \textbf{s-channel production} $e^+e^-\to H$:
+\vspace{0.5em}
+$$\sigma_{ee\to H} = \frac{4\pi \Gamma_H \Gamma(H\to e^+e^-)}{(s-m_H^2)^2+m_H^2\Gamma_H^2}$$
+
+\vspace{0.5em}
+
+\textbf{The advantage:} We can use large branching ratio decays ($H\to b\bar{b}$, $gg$, $WW^*$) with less background for detection and we can run at CME equal to $m_H$ for direct production.
+
+\vspace{1em}
+
+\textbf{Current detector design} for FCC-ee is IDEA (Innovative Detector for Electron-positron Accelerator) [2]
+\begin{itemize}
+    \item Ultra-light drift chamber for precise tracking  and particle identification
+    \item Dual-readout calorimeter for excellent jet energy resolution
+    \item Essential for distinguishing $gg$ from $q\bar{q}$ jets
+\end{itemize}
+
+\end{minipage}
+\end{center}
+\end{lotrblock}
+
+
+% =========================
+% Machine Learning Approach
+% =========================
+
+\begin{lotrblock}{IV. Machine Learning Approach}
+\begin{center}
+\begin{minipage}{1\textwidth}
+\justifying
+
+Machine learning can \textbf{build relationships between the data} within its black box to identifiy which type of event has produced these jets. We can change our model architecture and what we feed the model to see if this improves its detection efficiency.\\
+\vspace{1em}
+\textbf{Two main approaches to ML detection this project will use:}\\
+\vspace{0.5em}
+A) Supervised Approach: Representation Learning
+\begin{center}
+    \textbf{Jet Input $\rightarrow$ Encoder $\rightarrow$ Latent Space $\rightarrow$ Classifier $\rightarrow$ gg or qq}
+\end{center}
+\begin{itemize}
+    \item Autoencoder learns \textbf{compressed jet representation}
+    \item Latent space fed to classifier
+    \item Output: $gg$ vs $q\bar{q}$ classification score
+\end{itemize}
+\vspace{0.5em}
+B) Unsupervised Approach: Anomaly Detection
+\begin{center}
+    \textbf{Jet Input $\rightarrow$ Encoder $\rightarrow$ Latent Space $\rightarrow$ Decoder $\rightarrow$ Reconstruction}
+\end{center}
+\begin{itemize}
+    \item Learns to encode $q\bar{q}$ jets into latent space then reconstruct them accurately from this space (low loss)
+    \item When feed $gg$ jets should have a bad reconstruction (high loss)
+    \item Doesn't know what $gg$ or $q\bar{q}$ jets are
+\end{itemize}
+
+\textbf{Performance metrics:}\\
+Can use different metrics to measure how well the model is identifying the two jets:\\
+\begin{center}
+\goldbullet\ Gluon tag efficiency \goldbullet\ Quark mistag rate \goldbullet\ ROC Curves\\
+\end{center}
+\vspace{0.5em}
+\textbf{Particle Transformer / ParticleNet:}\\
+A new approach for jet tagging where jets are represented as unordered set of its constituent particles (Particle Clouds). A custom neural network architecture called ParticleNet has been developed using attention mechanisms to learn multi-particle correlations. This will be expored for this project. [4, 5]
+
+\end{minipage}
+\end{center}
+\end{lotrblock}
+
+
+\end{column}
+
+\end{columns}
+
+% =========================
+% Footer
+% =========================
+
+\begin{center}
+\begin{minipage}{0.98\textwidth}
+
+\begin{lotrblock}{V. Expected Rewards}
+\begin{center}
+\begin{minipage}{1\textwidth}
+\justifying
+
+Currently, the Yukawa coupling has only been measured for third generation fermions and by the end of the LHCs lifetime only a few second gen ($\mu$ and $c$-quark) will have been studied [1]. This means that, due their small coupling to Higgs field, the mechanism where the stable matter of the visible universe gets their mass from will remain untested and unconfirmed. From this project we hope to assess the feasibility of detecting electron--Yukawa coupling events and develop transferable ML models for future FCC-ee analyses.
+
+\end{minipage}
+\end{center}
+\end{lotrblock}
+
+\vspace{0.2em}
+
+\begin{beamercolorbox}[leftskip=1em,rightskip=1em,sep=0.5em,rounded=true,shadow=true]{block body}
+\justifying
+\textbf{References:}\\
+$\text{[1]}$\, Measuring the electron Yukawa coupling, arXiv:2107.02686 $\text{[2]}\,$Fermilab IDEA Detector, $\text{arXiv:2502.21223}$ $\text{[3]}$\,fcc-physics-events.web.cern.ch\\ $\text{[4]}$\, ParticleNet, arXiv:1902.08570 $\text{[5]}$\,Particle Transformer ,arXiv:2202.03772
+\end{beamercolorbox}
+
+\end{minipage}
+\end{center}
+
+\end{frame}
+
+\end{document}
